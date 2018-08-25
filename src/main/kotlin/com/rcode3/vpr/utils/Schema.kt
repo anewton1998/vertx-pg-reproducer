@@ -1,4 +1,4 @@
-package com.rcode3.vpr
+package com.rcode3.vpr.utils
 
 import io.vertx.core.json.JsonObject
 import com.rcode3.vpr.DEST_DB_CONFIG

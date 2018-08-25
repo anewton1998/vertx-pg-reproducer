@@ -12,7 +12,7 @@
     "password" : "password",
     "maxSize" : 1,
     "schema" : "public",
-    "flywayVersion" : "20180627120"
+    "flywayVersion" : "1"
   },
 
   // source database settings
@@ -24,7 +24,7 @@
     "password" : "password",
     "maxSize" : 1,
     "schema" : "public",
-    "flywayVersion" : "20180814140"
+    "flywayVersion" : "1"
   },
 
   "fetch_size" : 10

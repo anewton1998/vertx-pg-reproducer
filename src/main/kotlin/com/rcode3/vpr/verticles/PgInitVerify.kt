@@ -7,7 +7,7 @@ import io.vertx.core.AbstractVerticle
 import io.vertx.core.Future
 import io.vertx.core.json.JsonObject
 import mu.KLogging
-import com.rcode3.vpr.schema
+import com.rcode3.vpr.utils.schema
 
 /**
  * A verticle that creates a connection pool and verifies it.

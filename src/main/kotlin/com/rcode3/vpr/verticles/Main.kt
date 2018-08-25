@@ -8,8 +8,7 @@ import io.vertx.kotlin.core.DeploymentOptions
 import mu.KLogging
 import com.rcode3.vpr.DEST_DB_CONFIG
 import com.rcode3.vpr.SRC_DB_CONFIG
-import com.rcode3.vpr.verticles.seed.IpNetSeed
-import com.rcode3.vpr.verticles.seed.IpNetSeedRx
+import com.rcode3.vpr.verticles.seed.DocTableSeed
 
 const val WORK_COMPLETED_ADDR = "work_completed.address"
 const val WORK_ERRORED_ADDR   = "work_errored.address"
@@ -44,7 +43,7 @@ class Main : AbstractVerticle() {
         destDb.dbConfigName = DEST_DB_CONFIG
 
         val seedVerticles = listOf<BasePgVerticle>(
-                IpNetSeed()
+                DocTableSeed()
         )
 
         //replace this later with a real list
