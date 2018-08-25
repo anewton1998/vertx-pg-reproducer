@@ -9,6 +9,7 @@ import mu.KLogging
 import com.rcode3.vpr.DEST_DB_CONFIG
 import com.rcode3.vpr.SRC_DB_CONFIG
 import com.rcode3.vpr.verticles.seed.DocTableSeed
+import com.rcode3.vpr.verticles.seed.DocTableSeedRx
 
 const val WORK_COMPLETED_ADDR = "work_completed.address"
 const val WORK_ERRORED_ADDR   = "work_errored.address"
@@ -27,7 +28,7 @@ class Main : AbstractVerticle() {
 
         // prepare to listen for verticles that are done working.
         val eb = vertx.eventBus()
-        eb.consumer<String>( WORK_COMPLETED_ADDR ) { message ->
+        eb.consumer<String>( WORK_COMPLETED_ADDR ) { _ ->
 
             logger.info( "Stopping PG Replicator" )
             vertx.close()
@@ -46,12 +47,15 @@ class Main : AbstractVerticle() {
                 DocTableSeed()
         )
 
-        //replace this later with a real list
-        val deltaVerticles = emptyList<BasePgVerticle>()
+        val rxSeedVerticles = listOf<BasePgVerticle>(
+                DocTableSeedRx()
+        )
 
-        //replace this later with logic to switch between the two.
         var verticleList = seedVerticles
-
+        val testType = config().getString( "test_type" )
+        if( testType.equals( "vertx-rx" ) ) {
+            verticleList = rxSeedVerticles
+        }
 
         deployVerticle( srcDb )
         .compose{
@@ -59,7 +63,7 @@ class Main : AbstractVerticle() {
         }
         .compose{
             // pass the database pool to the verticles doing work
-            seedVerticles.forEach {
+            verticleList.forEach {
                 it.srcDbPool =  srcDb.pool
                 it.destDbPool = destDb.pool
             }

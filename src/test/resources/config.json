@@ -27,5 +27,8 @@
     "flywayVersion" : "1"
   },
 
-  "fetch_size" : 10
+  "fetch_size" : 5,
+
+  //"test_type" : "vertx-rx"
+  "test_type" : "vertx"
 }

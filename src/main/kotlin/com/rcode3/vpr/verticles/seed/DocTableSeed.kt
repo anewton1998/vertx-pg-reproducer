@@ -79,15 +79,19 @@ class DocTableSeed : BasePgVerticle() {
                                     vertx.eventBus().send( WORK_COMPLETED_ADDR, this.javaClass.name )
                                 }
                                 .handler { row ->
-                                    logger.info( "count is ${count} - id is ${row.getString( "ID" )}")
+                                    logger.info( "count is ${count} - id is ${row.getInteger( "id" )}")
                                     count++
                                     destDbPool.getConnection { destConnHandler ->
                                         if( destConnHandler.succeeded() ) {
                                             var tuple = Tuple.tuple()
-                                                    .addString( row.getString( "net_handle" ) )
-                                                    .addString( row.getString( "org_handle" ) )
-                                                    .addString( row.getString( "parent_net_handle" ) )
-                                                    .addString( row.getString( "net_name" ) )
+                                                    .addInteger( row.getInteger( "id" ) )
+                                                    .addString( row.getString( "name" ) )
+                                                    .addString( row.getString( "short_description" ) )
+                                                    .addString( row.getString( "author" ) )
+                                                    .addString( row.getString( "description" ) )
+                                                    .addString( row.getString( "content" ) )
+                                                    .addLocalDate( row.getLocalDate( "last_updated" ) )
+                                                    .addLocalDate( row.getLocalDate( "created" ) )
                                             var destConn = destConnHandler.result()
                                             destConn.preparedQuery( insertSql, tuple ) { rowSetHandler ->
                                                 if( rowSetHandler.succeeded() ) {

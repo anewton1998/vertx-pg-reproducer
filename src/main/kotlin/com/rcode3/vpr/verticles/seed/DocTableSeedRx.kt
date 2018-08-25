@@ -90,12 +90,16 @@ class DocTableSeedRx : BasePgRxVerticle() {
                         if( count % fetchSize() == 0 ) {
                         //    logger.info( "row #${count}: net handle = ${row.getString( "net_handle" ) }")
                         }
-                        logger.info( "row #${count}: id = ${row.getString( "ID" ) }")
+                        logger.info( "row #${count}: id = ${row.getString( "id" ) }")
                         var tuple = Tuple.tuple()
-                                .addString( row.getString( "net_handle" ) )
-                                .addString( row.getString( "org_handle" ) )
-                                .addString( row.getString( "parent_net_handle" ) )
-                                .addString( row.getString( "net_name" ) )
+                                .addInteger( row.getInteger( "id" ) )
+                                .addString( row.getString( "name" ) )
+                                .addString( row.getString( "short_description" ) )
+                                .addString( row.getString( "author" ) )
+                                .addString( row.getString( "description" ) )
+                                .addString( row.getString( "content" ) )
+                                .addValue( row.getValue( "last_updated" ) )
+                                .addValue( row.getValue( "created" ) )
                         destRxDbPool().rxPreparedQuery( insertSql, tuple )
                                 .subscribe(
                                         { result : PgRowSet  ->
