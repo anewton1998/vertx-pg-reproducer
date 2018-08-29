@@ -36,6 +36,9 @@ run {
 repositories {
     mavenCentral()
     jcenter()
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
 }
 
 dependencies {
@@ -46,7 +49,8 @@ dependencies {
     compile "io.vertx:vertx-core:$vertx_version"
     compile "io.vertx:vertx-lang-kotlin:$vertx_version"
     compile "io.vertx:vertx-rx-java2:$vertx_version"
-    compile "io.reactiverse:reactive-pg-client:0.10.1"
+    //compile "io.reactiverse:reactive-pg-client:0.10.1"
+    compile "io.reactiverse:reactive-pg-client:0.10.2-SNAPSHOT"
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+"
     testCompile "io.vertx:vertx-junit5:$vertx_version"
     testCompile "org.assertj:assertj-core:3.8.0"

@@ -29,6 +29,6 @@
 
   "fetch_size" : 5,
 
-  //"test_type" : "vertx-rx"
-  "test_type" : "vertx"
+  "test_type" : "vertx-rx"
+  //"test_type" : "vertx"
 }
